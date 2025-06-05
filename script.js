@@ -148,14 +148,10 @@ function rgbToName(hex) {
   const colorMap = {
     "#0000FF": "blue",
     "#000000": "black",
-    "#A52A2A": "brown",
     "#FFFFFF": "white",
     "#008000": "green",
     "#FFD700": "golden",
     "#FFA500": "orange",
-    "#FFC0CB": "pink",
-    "#800080": "purple",
-    "#C0C0C0": "silver",
     "#FF0000": "red",
     "#FFFF00": "yellow"
   };
