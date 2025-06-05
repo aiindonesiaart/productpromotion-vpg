@@ -1,11 +1,5 @@
-// Toggle Character Section
-document.getElementById('toggle-character-btn').addEventListener('click', () => {
-  const section = document.getElementById('character-section');
-  section.classList.toggle('hidden');
-});
-
-// Add Dialogue Button
-document.getElementById('add-dialogue-row').addEventListener('click', () => {
+// Add dialogue field dynamically
+document.getElementById('toggle-dialogue-btn').addEventListener('click', () => {
   const container = document.getElementById('dialogue-fields');
 
   const wrapper = document.createElement('div');
@@ -14,7 +8,6 @@ document.getElementById('add-dialogue-row').addEventListener('click', () => {
   const charInput = document.createElement('input');
   charInput.type = 'text';
   charInput.placeholder = 'Character Name (e.g., Sarah)';
-  charInput.style.marginBottom = '5px';
 
   const dialogueTextarea = document.createElement('textarea');
   dialogueTextarea.placeholder = 'What does the character say?';
@@ -40,50 +33,85 @@ document.getElementById('copy-prompt-btn').addEventListener('click', () => {
   });
 });
 
-// Function to collect all form data and generate prompt
 function generatePrompt() {
-  let prompt = "";
+  let prompt = "a mockup product packaging,";
 
-  // Art Style
-  const artStyle = document.getElementById('art-style').value.trim();
-  if (artStyle) prompt += `${artStyle} of `;
+  // Mockup Color
+  const mockupColorHex = document.getElementById('mockup-color').value;
+  const mockupColor = rgbToName(mockupColorHex) || "color";
 
-  // Character + Activity
-  if (!document.getElementById('character-section').classList.contains('hidden')) {
-    const charDesc = document.getElementById('character-select').value;
-    const activity = document.getElementById('activity-select').value;
-    prompt += `${charDesc} ${activity}, `;
+  const surface = document.getElementById('surface-select').value;
+  const mockupType = document.getElementById('mockup-type-select').value;
+
+  prompt += ` ${mockupColor} ${surface} ${mockupType},`;
+
+  // Sticker
+  const stickerColorHex = document.getElementById('sticker-color').value;
+  const stickerColor = rgbToName(stickerColorHex) || "color";
+  const stickerType = document.getElementById('sticker-type-select').value;
+  const stickerDesc = document.getElementById('sticker-description').value.trim();
+  const stickerText = document.getElementById('sticker-text').value.trim();
+
+  prompt += ` with ${stickerColor} ${stickerType}`;
+  if (stickerDesc) prompt += ` featuring "${stickerDesc}"`;
+  if (stickerText) prompt += ` says "${stickerText}"`;
+
+  // Lighting & Background
+  const lighting = document.getElementById('lighting-select').value;
+  const background = document.getElementById('background-select').value;
+
+  prompt += `, ${lighting}, ${background}`;
+
+  // Character
+  const character = document.getElementById('character-input').value.trim();
+  const activity = document.getElementById('activity-input').value.trim();
+
+  if (character && activity) {
+    prompt += `, ${character} ${activity}`;
   }
 
-  // Mockup Section
-  const surface = document.querySelectorAll('#mockup-section select')[0].value;
-  const mockupType = document.querySelectorAll('#mockup-section select')[1].value;
-  const lighting = document.querySelectorAll('#mockup-section select')[2].value;
-  const background = document.querySelectorAll('#mockup-section select')[3].value;
-
-  const stickerType = document.querySelectorAll('#mockup-section select')[4].value;
-  const stickerText = document.getElementById('sticker-text').value;
-
-  prompt += `a product packaging, ${surface} ${mockupType}, ${stickerType} featuring a slice of lemon says "${stickerText || 'Bandar Sabun'}", ${lighting}, ${background}`;
-
   // Dialogues
-  const dialoguePairs = document.querySelectorAll('#dialogue-fields .dialogue-pair');
-  dialoguePairs.forEach(pair => {
+  const dialogues = document.querySelectorAll('#dialogue-fields .dialogue-pair');
+  dialogues.forEach(pair => {
     const char = pair.querySelector('input').value.trim();
     const text = pair.querySelector('textarea').value.trim();
-
     if (char && text) {
       prompt += `, ${char} says "${text}"`;
     }
   });
 
+  // Art Style
+  const artStyle = document.getElementById('art-style').value.trim();
+  if (artStyle) {
+    prompt = `${artStyle} of ${prompt}`;
+  }
+
   // Audio
-  const audioDesc = document.getElementById('audio-description').value.trim();
-  if (audioDesc) prompt += `, the audio is ${audioDesc}`;
+  const audio = document.getElementById('audio-description').value.trim();
+  if (audio) prompt += `, the audio is ${audio}`;
 
   // Camera Effect
   const cameraEffect = document.getElementById('camera-effect').value.trim();
   if (cameraEffect) prompt += `, the scene ends with ${cameraEffect}`;
 
   return prompt;
+}
+
+// Simple RGB to Color Name Map (for better readability)
+function rgbToName(hex) {
+  const colorMap = {
+    "#0000FF": "blue",
+    "#000000": "black",
+    "#A52A2A": "brown",
+    "#FFFFFF": "white",
+    "#008000": "green",
+    "#FFD700": "golden",
+    "#FFA500": "orange",
+    "#FFC0CB": "pink",
+    "#800080": "purple",
+    "#C0C0C0": "silver",
+    "#FF0000": "red",
+    "#FFFF00": "yellow"
+  };
+  return colorMap[hex.toUpperCase()] || null;
 }
