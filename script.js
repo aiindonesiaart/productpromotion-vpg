@@ -6,15 +6,9 @@ document.querySelectorAll('#mockup-colors button').forEach(button => {
   button.addEventListener('click', () => {
     selectedMockupColor = button.getAttribute('data-color');
 
-    // Remove active class from all
     document.querySelectorAll('#mockup-colors button').forEach(btn => btn.classList.remove('active'));
-
-    if (selectedMockupColor !== "") {
-      button.classList.add('active');
-      showNotification(`You choose ${selectedMockupColor} for mockup`);
-    } else {
-      showNotification("You chose no color for mockup");
-    }
+    if (selectedMockupColor) button.classList.add('active');
+    showNotification(`You choose ${selectedMockupColor || 'no color'} for mockup`);
   });
 });
 
@@ -23,15 +17,9 @@ document.querySelectorAll('#sticker-colors button').forEach(button => {
   button.addEventListener('click', () => {
     selectedStickerColor = button.getAttribute('data-color');
 
-    // Remove active class from all
     document.querySelectorAll('#sticker-colors button').forEach(btn => btn.classList.remove('active'));
-
-    if (selectedStickerColor !== "") {
-      button.classList.add('active');
-      showNotification(`You choose ${selectedStickerColor} for sticker`);
-    } else {
-      showNotification("You chose no color for sticker");
-    }
+    if (selectedStickerColor) button.classList.add('active');
+    showNotification(`You choose ${selectedStickerColor || 'no color'} for sticker`);
   });
 });
 
@@ -74,8 +62,13 @@ function showNotification(message) {
 
 // Generate Prompt
 document.getElementById('generate-prompt-btn').addEventListener('click', () => {
-  const prompt = generatePrompt();
-  document.getElementById('generated-prompt').value = prompt;
+  try {
+    const prompt = generatePrompt();
+    document.getElementById('generated-prompt').value = prompt.trim();
+  } catch (error) {
+    alert("Error generating prompt. Please check console.");
+    console.error(error);
+  }
 });
 
 // Copy to Clipboard
@@ -101,9 +94,7 @@ function generatePrompt() {
   prompt += "a mockup product packaging,";
 
   // Mockup Color
-  if (selectedMockupColor) {
-    prompt += ` ${selectedMockupColor}`;
-  }
+  if (selectedMockupColor) prompt += ` ${selectedMockupColor}`;
 
   // Surface + Mockup Type
   const surface = document.getElementById('surface-select').value;
@@ -115,7 +106,6 @@ function generatePrompt() {
   const stickerDesc = document.getElementById('sticker-description').value.trim();
 
   if (selectedStickerColor) prompt += ` with ${selectedStickerColor}`;
-
   prompt += ` ${stickerType}`;
 
   if (stickerDesc) prompt += ` featuring ${stickerDesc}`;
@@ -137,18 +127,13 @@ function generatePrompt() {
   // Character + Activity
   const character = document.getElementById('character-input').value.trim();
   const activity = document.getElementById('activity-input').value.trim();
-  if (character && activity) {
-    prompt += `, ${character} ${activity}`;
-  }
+  if (character && activity) prompt += `, ${character} ${activity}`;
 
   // Dialogues
-  const dialogues = document.querySelectorAll('#dialogue-fields .dialogue-pair');
-  dialogues.forEach(pair => {
+  document.querySelectorAll('#dialogue-fields .dialogue-pair').forEach(pair => {
     const char = pair.querySelector('input').value.trim();
     const text = pair.querySelector('textarea').value.trim();
-    if (char && text) {
-      prompt += `, ${char} says "${text}"`;
-    }
+    if (char && text) prompt += `, ${char} says "${text}"`;
   });
 
   // Audio
@@ -156,10 +141,6 @@ function generatePrompt() {
   const audioCustom = document.getElementById('audio-custom').value.trim();
   const audio = audioCustom || audioSelect;
   if (audio) prompt += `, the audio is ${audio}`;
-
-  // Camera Effect
-  const cameraEffect = document.getElementById('camera-effect').value.trim();
-  if (cameraEffect) prompt += `, the scene ends with ${cameraEffect}`;
 
   return prompt;
 }
