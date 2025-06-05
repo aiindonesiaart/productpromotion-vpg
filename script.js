@@ -64,9 +64,9 @@ function showNotification(message) {
 document.getElementById('generate-prompt-btn').addEventListener('click', () => {
   try {
     const prompt = generatePrompt();
-    document.getElementById('generated-prompt').value = prompt.trim();
+    document.getElementById('generated-prompt').value = prompt;
   } catch (error) {
-    alert("Error generating prompt. Please check console.");
+    alert("Error generating prompt.");
     console.error(error);
   }
 });
@@ -80,6 +80,7 @@ document.getElementById('copy-prompt-btn').addEventListener('click', () => {
   });
 });
 
+// Generate Prompt Logic
 function generatePrompt() {
   let promptParts = [];
 
@@ -142,9 +143,7 @@ function generatePrompt() {
   const character = document.getElementById('character-input').value.trim();
   const activity = document.getElementById('activity-input').value.trim();
 
-  if (character && activity) {
-    promptParts.push(`${character} ${activity}`);
-  }
+  if (character && activity) promptParts.push(`${character} ${activity}`);
 
   // Dialogues
   document.querySelectorAll('#dialogue-fields .dialogue-pair').forEach(pair => {
@@ -158,10 +157,6 @@ function generatePrompt() {
   const audioCustom = document.getElementById('audio-custom').value.trim();
   const audio = audioCustom || audioSelect;
   if (audio) promptParts.push(`the audio is ${audio}`);
-
-  // Camera Effect
-  const cameraEffect = document.getElementById('camera-effect')?.value.trim();
-  if (cameraEffect) promptParts.push(`the scene ends with ${cameraEffect}`);
 
   // Join all parts into one sentence
   let finalPrompt = promptParts.join(" ");
