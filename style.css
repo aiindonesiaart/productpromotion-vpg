@@ -24,13 +24,13 @@ body {
   margin-bottom: 10px;
 }
 
-.color-palette button,
-.color-palette input[type="color"] {
+.color-palette button {
   cursor: pointer;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   font-size: 14px;
+  background-color: #eee;
 }
 
 .color-palette button.active {
@@ -53,12 +53,12 @@ textarea {
   font-weight: bold;
 }
 
-.dialogue-pair {
-  margin-bottom: 15px;
-}
-
 .brand-input {
   margin-bottom: 10px;
+}
+
+.dialogue-pair {
+  margin-bottom: 15px;
 }
 
 #generated-prompt {
