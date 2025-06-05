@@ -55,21 +55,13 @@ textarea {
   display: none;
 }
 
-#dialogue-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 10px;
+.dialogue-pair {
+  margin-bottom: 15px;
 }
 
-#dialogue-table th,
-#dialogue-table td {
-  padding: 8px;
-  border: 1px solid #ccc;
-}
-
-#dialogue-table input[type="text"] {
+.dialogue-pair input,
+.dialogue-pair textarea {
   width: 100%;
-  box-sizing: border-box;
 }
 
 #prompt-section textarea {
