@@ -10,25 +10,24 @@
   <div class="container">
     <h1>Product Promotion Video Prompt Generator</h1>
 
+    <!-- Notifications -->
+    <div id="notifications"></div>
+
     <!-- Mockup Section -->
     <section id="mockup-section">
       <h2>Mockup</h2>
 
-      <label>Color Palette:</label>
-      <div class="color-palette">
-        <input type="color" id="mockup-color" value="#0000FF"><span>Blue</span>
-        <input type="color" value="#000000"><span>Black</span>
-        <input type="color" value="#A52A2A"><span>Brown</span>
-        <input type="color" value="#FFFFFF"><span>White</span>
-        <input type="color" value="#008000"><span>Green</span>
-        <input type="color" value="#FFD700"><span>Golden</span>
-        <input type="color" value="#FFA500"><span>Orange</span>
-        <input type="color" value="#FFC0CB"><span>Pink</span>
-        <input type="color" value="#800080"><span>Purple</span>
-        <input type="color" value="#C0C0C0"><span>Silver</span>
-        <input type="color" value="#FF0000"><span>Red</span>
-        <input type="color" value="#FFFF00"><span>Yellow</span>
+      <label>Mockup Color:</label>
+      <div class="color-palette" id="mockup-colors">
+        <button data-color="white">White</button>
+        <button data-color="black">Black</button>
+        <button data-color="blue">Blue</button>
+        <button data-color="green">Green</button>
+        <button data-color="red">Red</button>
+        <button data-color="yellow">Yellow</button>
+        <button data-color="">No Color</button>
       </div>
+      <input type="hidden" id="mockup-color-value" />
 
       <label title="plain surface,bumpy surface,corrugated surface...">Surface</label>
       <select id="surface-select">
@@ -62,9 +61,16 @@
         <option>transparent background</option>
         <option>laundry background</option>
       </select>
+    </section>
+
+    <!-- Sticker Section -->
+    <section id="sticker-section">
+      <h2>Sticker</h2>
 
       <label>Sticker Color:</label>
-      <input type="color" id="sticker-color" value="#008000">
+      <div class="color-palette">
+        <input type="color" id="sticker-color" value="#008000">
+      </div>
 
       <label>Sticker Type</label>
       <select id="sticker-type-select">
@@ -73,20 +79,23 @@
         <option>oval sticker</option>
       </select>
 
-      <label>Custom Sticker Text</label>
-      <input type="text" id="sticker-text" placeholder="e.g. New Arrival!" />
-
       <label>Description of Sticker</label>
-      <textarea id="sticker-description" placeholder="Describe the sticker design..."></textarea>
+      <textarea id="sticker-description" placeholder="e.g. a slice of lemon"></textarea>
+
+      <label>Sticker Brand</label>
+      <div id="sticker-brand-fields">
+        <input type="text" class="brand-input" placeholder="e.g. Bandar Sabun" />
+      </div>
+      <button id="add-sticker-brand-btn">+ Add Brand</button>
     </section>
 
     <!-- Character Section -->
     <section id="character-section">
       <h2>Character</h2>
-      <label>Character Description (Suggested: e.g. A woman with hijab)</label>
+      <label>Character Description</label>
       <input type="text" id="character-input" placeholder="e.g. A woman with hijab" />
 
-      <label>Activity (Suggested: e.g. holding a mockup)</label>
+      <label>Activity</label>
       <input type="text" id="activity-input" placeholder="e.g. holding a mockup" />
 
       <button id="toggle-dialogue-btn">+ Add Dialogue</button>
