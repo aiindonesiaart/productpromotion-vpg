@@ -81,34 +81,47 @@ document.getElementById('copy-prompt-btn').addEventListener('click', () => {
 });
 
 function generatePrompt() {
-  let prompt = "";
+  let promptParts = [];
 
   // Art Style
   const artStyleSelect = document.getElementById('art-style-select').value.trim();
   const artStyleCustom = document.getElementById('art-style-custom').value.trim();
   const artStyle = artStyleCustom || artStyleSelect;
 
-  if (artStyle) prompt += `${artStyle} of `;
+  if (artStyle) {
+    promptParts.push(`${artStyle} of`);
+  }
 
-  // Base Prompt
-  prompt += "a mockup product packaging,";
+  promptParts.push("a mockup product packaging,");
 
   // Mockup Color
-  if (selectedMockupColor) prompt += ` ${selectedMockupColor}`;
+  if (selectedMockupColor) {
+    promptParts.push(selectedMockupColor);
+  }
 
   // Surface + Mockup Type
-  const surface = document.getElementById('surface-select').value;
-  const mockupType = document.getElementById('mockup-type-select').value;
-  prompt += ` ${surface} ${mockupType},`;
+  const surface = document.getElementById('surface-select').value.trim();
+  const mockupType = document.getElementById('mockup-type-select').value.trim();
+
+  if (surface && mockupType) {
+    promptParts.push(`${surface} ${mockupType},`);
+  } else if (surface) {
+    promptParts.push(surface + ",");
+  } else if (mockupType) {
+    promptParts.push(mockupType + ",");
+  } else {
+    promptParts.pop(); // remove "a mockup product packaging," if no surface/mockup
+  }
 
   // Sticker
-  const stickerType = document.getElementById('sticker-type-select').value;
+  const stickerType = document.getElementById('sticker-type-select').value.trim();
   const stickerDesc = document.getElementById('sticker-description').value.trim();
 
-  if (selectedStickerColor) prompt += ` with ${selectedStickerColor}`;
-  prompt += ` ${stickerType}`;
-
-  if (stickerDesc) prompt += ` featuring ${stickerDesc}`;
+  if (selectedStickerColor || stickerType) {
+    if (selectedStickerColor) promptParts.push(`with ${selectedStickerColor}`);
+    if (stickerType) promptParts.push(stickerType);
+    if (stickerDesc) promptParts.push(`featuring ${stickerDesc}`);
+  }
 
   // Sticker Brands
   const brands = [...document.querySelectorAll('.brand-input')]
@@ -116,31 +129,45 @@ function generatePrompt() {
                     .filter(Boolean)
                     .join(', ');
 
-  if (brands) prompt += ` labelled: "${brands}"`;
+  if (brands) promptParts.push(`labelled: "${brands}"`);
 
   // Lighting & Background
-  const lighting = document.getElementById('lighting-select').value;
+  const lighting = document.getElementById('lighting-select').value.trim();
   const background = document.getElementById('background-input').value.trim();
 
-  prompt += `, ${lighting}, ${background}`;
+  if (lighting) promptParts.push(lighting);
+  if (background) promptParts.push(background);
 
   // Character + Activity
   const character = document.getElementById('character-input').value.trim();
   const activity = document.getElementById('activity-input').value.trim();
-  if (character && activity) prompt += `, ${character} ${activity}`;
+
+  if (character && activity) {
+    promptParts.push(`${character} ${activity}`);
+  }
 
   // Dialogues
   document.querySelectorAll('#dialogue-fields .dialogue-pair').forEach(pair => {
     const char = pair.querySelector('input').value.trim();
     const text = pair.querySelector('textarea').value.trim();
-    if (char && text) prompt += `, ${char} says "${text}"`;
+    if (char && text) promptParts.push(`${char} says "${text}"`);
   });
 
   // Audio
   const audioSelect = document.getElementById('audio-select').value.trim();
   const audioCustom = document.getElementById('audio-custom').value.trim();
   const audio = audioCustom || audioSelect;
-  if (audio) prompt += `, the audio is ${audio}`;
+  if (audio) promptParts.push(`the audio is ${audio}`);
 
-  return prompt;
+  // Camera Effect
+  const cameraEffect = document.getElementById('camera-effect')?.value.trim();
+  if (cameraEffect) promptParts.push(`the scene ends with ${cameraEffect}`);
+
+  // Join all parts into one sentence
+  let finalPrompt = promptParts.join(" ");
+
+  // Clean up extra commas and spaces
+  finalPrompt = finalPrompt.replace(/,\s*,/g, ",").replace(/\s+/g, " ").trim();
+
+  return finalPrompt;
 }
