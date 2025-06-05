@@ -76,7 +76,10 @@ document.getElementById('copy-prompt-btn').addEventListener('click', () => {
   const promptArea = document.getElementById('generated-prompt');
   promptArea.select();
   navigator.clipboard.writeText(promptArea.value).then(() => {
-    alert('Prompt copied to clipboard!');
+    showNotification('The prompt copied. Now you can create image/video');
+  }).catch(err => {
+    alert("Failed to copy prompt");
+    console.error(err);
   });
 });
 
