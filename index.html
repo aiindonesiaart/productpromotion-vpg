@@ -27,6 +27,7 @@
         <button data-color="yellow">Yellow</button>
         <button data-color="">No Color</button>
       </div>
+
       <input type="hidden" id="mockup-color-value" />
 
       <label title="plain surface,bumpy surface,corrugated surface...">Surface</label>
@@ -55,12 +56,7 @@
       </select>
 
       <label>Background</label>
-      <select id="background-select">
-        <option>white background</option>
-        <option>black background</option>
-        <option>transparent background</option>
-        <option>laundry background</option>
-      </select>
+      <input type="text" id="background-input" placeholder="e.g. white background, natural outdoor scene" />
     </section>
 
     <!-- Sticker Section -->
@@ -68,9 +64,17 @@
       <h2>Sticker</h2>
 
       <label>Sticker Color:</label>
-      <div class="color-palette">
-        <input type="color" id="sticker-color" value="#008000">
+      <div class="color-palette" id="sticker-colors">
+        <button data-color="white">White</button>
+        <button data-color="black">Black</button>
+        <button data-color="blue">Blue</button>
+        <button data-color="green">Green</button>
+        <button data-color="red">Red</button>
+        <button data-color="yellow">Yellow</button>
+        <button data-color="">No Color</button>
       </div>
+
+      <input type="hidden" id="sticker-color-value" />
 
       <label>Sticker Type</label>
       <select id="sticker-type-select">
@@ -89,6 +93,33 @@
       <button id="add-sticker-brand-btn">+ Add Brand</button>
     </section>
 
+    <!-- Narrative Section -->
+    <section id="narrative-section">
+      <h2>Art Style & Scene</h2>
+
+      <label>Video Type / Art Style</label>
+      <select id="art-style-select">
+        <option>-- Select --</option>
+        <option>cinematic video</option>
+        <option>realistic cinematic video</option>
+        <option>a high detailed scene</option>
+        <option>animated explainer</option>
+        <option>studio product showcase</option>
+      </select>
+      <input type="text" id="art-style-custom" placeholder="Or type custom art style" />
+
+      <label>Audio Description</label>
+      <select id="audio-select">
+        <option>-- Select --</option>
+        <option>natural voiceover</option>
+        <option>soft background music</option>
+        <option>no audio</option>
+        <option>calm instrumental</option>
+        <option>exciting upbeat track</option>
+      </select>
+      <input type="text" id="audio-custom" placeholder="Or type custom audio description" />
+    </section>
+
     <!-- Character Section -->
     <section id="character-section">
       <h2>Character</h2>
@@ -101,26 +132,6 @@
       <button id="toggle-dialogue-btn">+ Add Dialogue</button>
 
       <div id="dialogue-fields"></div>
-    </section>
-
-    <!-- Art Style & Scene -->
-    <section id="narrative-section">
-      <h2>Art Style & Scene</h2>
-      <label>Video Type / Art Style</label>
-      <input type="text" id="art-style" placeholder="e.g. cinematic video" />
-
-      <label>Camera Effects</label>
-      <select id="camera-effect">
-        <option value="">-- Select --</option>
-        <option>close-up of the product</option>
-        <option>wide-angle view</option>
-        <option>dolly zoom</option>
-        <option>slow motion</option>
-        <option>panning shot</option>
-      </select>
-
-      <label>Audio Description</label>
-      <input type="text" id="audio-description" placeholder="e.g. natural voiceover, soft music" />
     </section>
 
     <!-- Generate Prompt Section -->
