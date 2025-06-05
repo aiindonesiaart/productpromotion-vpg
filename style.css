@@ -18,7 +18,7 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-h1, h2 {
+h1, h2, h3 {
   margin-top: 0;
 }
 
@@ -41,7 +41,9 @@ h1, h2 {
   margin-top: 5px;
 }
 
-select, input[type="text"], textarea {
+select,
+input[type="text"],
+textarea {
   width: 100%;
   padding: 8px;
   margin-bottom: 10px;
@@ -53,9 +55,25 @@ select, input[type="text"], textarea {
   display: none;
 }
 
-#dialogues-container .dialogue-box {
-  margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+#dialogue-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+#dialogue-table th,
+#dialogue-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+#dialogue-table input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#prompt-section textarea {
+  height: 150px;
+  font-family: monospace;
+  width: 100%;
 }
