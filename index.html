@@ -10,10 +10,30 @@
   <div class="container">
     <h1>Product Promotion Video Prompt Generator</h1>
 
+    <!-- Narrative Prompt Section -->
+    <section id="narrative-section">
+      <h2>Art Style & Scene</h2>
+      <label>Video Type / Art Style</label>
+      <input type="text" id="art-style" placeholder="e.g. cinematic video">
+
+      <label>Camera Effects</label>
+      <select id="camera-effect">
+        <option value="">-- Select --</option>
+        <option>close-up of the product</option>
+        <option>wide-angle view</option>
+        <option>dolly zoom</option>
+        <option>slow motion</option>
+        <option>panning shot</option>
+      </select>
+
+      <label>Audio Description</label>
+      <input type="text" id="audio-description" placeholder="e.g. natural voiceover, soft music">
+    </section>
+
     <!-- Mockup Section -->
     <section id="mockup-section">
       <h2>Mockup</h2>
-      
+
       <label>Color Palette:</label>
       <div class="color-palette">
         <input type="color" value="#0000FF"><span>Blue</span>
@@ -41,19 +61,18 @@
 
       <label title="acetate window box,bag in box,blister pack...">Mockup Type</label>
       <select title="Choose mockup type">
-        <option>acetate window box</option>
-        <option>bag in box</option>
-        <option>blister pack</option>
+        <option>jerrycan</option>
         <option>bottle</option>
         <option>carton</option>
+        <option>pouch</option>
       </select>
 
       <label title="ambient light,key light,fill light...">Lighting</label>
       <select title="Choose lighting type">
-        <option>ambient light</option>
+        <option>back light</option>
         <option>key light</option>
         <option>fill light</option>
-        <option>back light</option>
+        <option>diffuse light</option>
       </select>
 
       <label>Background</label>
@@ -65,17 +84,17 @@
       </select>
 
       <label>Sticker Color:</label>
-      <input type="color" value="#FF0000">
+      <input type="color" value="#008000">
 
       <label>Sticker Type</label>
       <select>
-        <option>Oval sticker</option>
-        <option>Square sticker</option>
-        <option>Circle sticker</option>
+        <option>green square sticker</option>
+        <option>circle sticker</option>
+        <option>oval sticker</option>
       </select>
 
       <label>Custom Sticker Text</label>
-      <input type="text" placeholder="e.g. New Arrival!"/>
+      <input type="text" id="sticker-text" placeholder="Bandar Sabun"/>
 
       <label>Description of Sticker</label>
       <textarea placeholder="Describe the sticker design..."></textarea>
@@ -87,13 +106,13 @@
     <section id="character-section" class="hidden">
       <h2>Character</h2>
       <label>Character Description</label>
-      <select>
+      <select id="character-select">
         <option>A woman with hijab</option>
         <option>A man with small moustache</option>
       </select>
 
       <label>Activity</label>
-      <select>
+      <select id="activity-select">
         <option>holding a mockup</option>
         <option>next to mockup</option>
         <option>showcasing product</option>
@@ -101,8 +120,28 @@
 
       <button id="toggle-dialogue-btn">Add Dialogue</button>
 
-      <!-- Dialogues will appear here -->
-      <div id="dialogues-container"></div>
+      <!-- Dialogues Table -->
+      <div id="dialogues-container">
+        <h3>Dialogues</h3>
+        <table id="dialogue-table">
+          <thead>
+            <tr>
+              <th>Character</th>
+              <th>Dialogue</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <button id="add-dialogue-row">Add Dialogue Row</button>
+      </div>
+    </section>
+
+    <!-- Generate Prompt Section -->
+    <section id="prompt-section">
+      <h2>Generated Prompt</h2>
+      <textarea id="generated-prompt" readonly placeholder="Your prompt will appear here..."></textarea>
+      <button id="generate-prompt-btn">Generate Prompt</button>
+      <button id="copy-prompt-btn">Copy Prompt</button>
     </section>
   </div>
 
