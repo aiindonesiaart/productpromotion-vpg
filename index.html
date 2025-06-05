@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Promotion Video Prompt Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Product Promotion Video Prompt Generator</h1>
+
+    <!-- Mockup Section -->
+    <section id="mockup-section">
+      <h2>Mockup</h2>
+      
+      <label>Color Palette:</label>
+      <div class="color-palette">
+        <input type="color" value="#0000FF"><span>Blue</span>
+        <input type="color" value="#000000"><span>Black</span>
+        <input type="color" value="#A52A2A"><span>Brown</span>
+        <input type="color" value="#FFFFFF"><span>White</span>
+        <input type="color" value="#008000"><span>Green</span>
+        <input type="color" value="#FFD700"><span>Golden</span>
+        <input type="color" value="#FFA500"><span>Orange</span>
+        <input type="color" value="#FFC0CB"><span>Pink</span>
+        <input type="color" value="#800080"><span>Purple</span>
+        <input type="color" value="#C0C0C0"><span>Silver</span>
+        <input type="color" value="#FF0000"><span>Red</span>
+        <input type="color" value="#FFFF00"><span>Yellow</span>
+      </div>
+
+      <label title="plain surface,bumpy surface,corrugated surface...">Surface</label>
+      <select title="Select surface texture">
+        <option>plain surface</option>
+        <option>bumpy surface</option>
+        <option>corrugated surface</option>
+        <option>crystaline surface</option>
+        <option>embroidered surface</option>
+      </select>
+
+      <label title="acetate window box,bag in box,blister pack...">Mockup Type</label>
+      <select title="Choose mockup type">
+        <option>acetate window box</option>
+        <option>bag in box</option>
+        <option>blister pack</option>
+        <option>bottle</option>
+        <option>carton</option>
+      </select>
+
+      <label title="ambient light,key light,fill light...">Lighting</label>
+      <select title="Choose lighting type">
+        <option>ambient light</option>
+        <option>key light</option>
+        <option>fill light</option>
+        <option>back light</option>
+      </select>
+
+      <label>Background</label>
+      <select>
+        <option>white background</option>
+        <option>black background</option>
+        <option>transparent background</option>
+        <option>laundry background</option>
+      </select>
+
+      <label>Sticker Color:</label>
+      <input type="color" value="#FF0000">
+
+      <label>Sticker Type</label>
+      <select>
+        <option>Oval sticker</option>
+        <option>Square sticker</option>
+        <option>Circle sticker</option>
+      </select>
+
+      <label>Custom Sticker Text</label>
+      <input type="text" placeholder="e.g. New Arrival!"/>
+
+      <label>Description of Sticker</label>
+      <textarea placeholder="Describe the sticker design..."></textarea>
+
+      <button id="toggle-character-btn">Add Character</button>
+    </section>
+
+    <!-- Character Section -->
+    <section id="character-section" class="hidden">
+      <h2>Character</h2>
+      <label>Character Description</label>
+      <select>
+        <option>A woman with hijab</option>
+        <option>A man with small moustache</option>
+      </select>
+
+      <label>Activity</label>
+      <select>
+        <option>holding a mockup</option>
+        <option>next to mockup</option>
+        <option>showcasing product</option>
+      </select>
+
+      <button id="toggle-dialogue-btn">Add Dialogue</button>
+
+      <!-- Dialogues will appear here -->
+      <div id="dialogues-container"></div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
