@@ -4,28 +4,25 @@ document.getElementById('toggle-character-btn').addEventListener('click', () => 
   section.classList.toggle('hidden');
 });
 
-// Add Dialogue Rows
+// Add Dialogue Button
 document.getElementById('add-dialogue-row').addEventListener('click', () => {
-  const tbody = document.querySelector('#dialogue-table tbody');
+  const container = document.getElementById('dialogue-fields');
 
-  const tr = document.createElement('tr');
+  const wrapper = document.createElement('div');
+  wrapper.className = 'dialogue-pair';
 
-  const tdChar = document.createElement('td');
-  const inputChar = document.createElement('input');
-  inputChar.type = 'text';
-  inputChar.placeholder = 'e.g. Sarah';
-  tdChar.appendChild(inputChar);
+  const charInput = document.createElement('input');
+  charInput.type = 'text';
+  charInput.placeholder = 'Character Name (e.g., Sarah)';
+  charInput.style.marginBottom = '5px';
 
-  const tdText = document.createElement('td');
-  const inputText = document.createElement('input');
-  inputText.type = 'text';
-  inputText.placeholder = 'What they say...';
-  tdText.appendChild(inputText);
+  const dialogueTextarea = document.createElement('textarea');
+  dialogueTextarea.placeholder = 'What does the character say?';
 
-  tr.appendChild(tdChar);
-  tr.appendChild(tdText);
+  wrapper.appendChild(charInput);
+  wrapper.appendChild(dialogueTextarea);
 
-  tbody.appendChild(tr);
+  container.appendChild(wrapper);
 });
 
 // Generate Prompt
@@ -52,12 +49,10 @@ function generatePrompt() {
   if (artStyle) prompt += `${artStyle} of `;
 
   // Character + Activity
-  let characterPrompt = "";
   if (!document.getElementById('character-section').classList.contains('hidden')) {
     const charDesc = document.getElementById('character-select').value;
     const activity = document.getElementById('activity-select').value;
-    characterPrompt = `${charDesc} ${activity}, `;
-    prompt += characterPrompt;
+    prompt += `${charDesc} ${activity}, `;
   }
 
   // Mockup Section
@@ -72,16 +67,15 @@ function generatePrompt() {
   prompt += `a product packaging, ${surface} ${mockupType}, ${stickerType} featuring a slice of lemon says "${stickerText || 'Bandar Sabun'}", ${lighting}, ${background}`;
 
   // Dialogues
-  const dialogues = [...document.querySelectorAll('#dialogue-table tbody tr')];
-  if (dialogues.length > 0) {
-    dialogues.forEach(row => {
-      const char = row.children[0].children[0].value;
-      const text = row.children[1].children[0].value;
-      if (char && text) {
-        prompt += `, ${char} says "${text}"`;
-      }
-    });
-  }
+  const dialoguePairs = document.querySelectorAll('#dialogue-fields .dialogue-pair');
+  dialoguePairs.forEach(pair => {
+    const char = pair.querySelector('input').value.trim();
+    const text = pair.querySelector('textarea').value.trim();
+
+    if (char && text) {
+      prompt += `, ${char} says "${text}"`;
+    }
+  });
 
   // Audio
   const audioDesc = document.getElementById('audio-description').value.trim();
