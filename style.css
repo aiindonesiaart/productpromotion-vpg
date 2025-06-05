@@ -57,11 +57,7 @@ textarea {
   margin-bottom: 10px;
 }
 
-.dialogue-pair {
-  margin-bottom: 15px;
-}
-
-#generated-prompt {
-  height: 200px;
-  font-family: monospace;
+.dialogue-pair input,
+.dialogue-pair textarea {
+  margin-bottom: 10px;
 }
