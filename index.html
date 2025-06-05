@@ -10,33 +10,13 @@
   <div class="container">
     <h1>Product Promotion Video Prompt Generator</h1>
 
-    <!-- Narrative Prompt Section -->
-    <section id="narrative-section">
-      <h2>Art Style & Scene</h2>
-      <label>Video Type / Art Style</label>
-      <input type="text" id="art-style" placeholder="e.g. cinematic video">
-
-      <label>Camera Effects</label>
-      <select id="camera-effect">
-        <option value="">-- Select --</option>
-        <option>close-up of the product</option>
-        <option>wide-angle view</option>
-        <option>dolly zoom</option>
-        <option>slow motion</option>
-        <option>panning shot</option>
-      </select>
-
-      <label>Audio Description</label>
-      <input type="text" id="audio-description" placeholder="e.g. natural voiceover, soft music">
-    </section>
-
     <!-- Mockup Section -->
     <section id="mockup-section">
       <h2>Mockup</h2>
 
       <label>Color Palette:</label>
       <div class="color-palette">
-        <input type="color" value="#0000FF"><span>Blue</span>
+        <input type="color" id="mockup-color" value="#0000FF"><span>Blue</span>
         <input type="color" value="#000000"><span>Black</span>
         <input type="color" value="#A52A2A"><span>Brown</span>
         <input type="color" value="#FFFFFF"><span>White</span>
@@ -51,7 +31,7 @@
       </div>
 
       <label title="plain surface,bumpy surface,corrugated surface...">Surface</label>
-      <select title="Select surface texture">
+      <select id="surface-select">
         <option>plain surface</option>
         <option>bumpy surface</option>
         <option>corrugated surface</option>
@@ -60,7 +40,7 @@
       </select>
 
       <label title="acetate window box,bag in box,blister pack...">Mockup Type</label>
-      <select title="Choose mockup type">
+      <select id="mockup-type-select">
         <option>jerrycan</option>
         <option>bottle</option>
         <option>carton</option>
@@ -68,7 +48,7 @@
       </select>
 
       <label title="ambient light,key light,fill light...">Lighting</label>
-      <select title="Choose lighting type">
+      <select id="lighting-select">
         <option>back light</option>
         <option>key light</option>
         <option>fill light</option>
@@ -76,7 +56,7 @@
       </select>
 
       <label>Background</label>
-      <select>
+      <select id="background-select">
         <option>white background</option>
         <option>black background</option>
         <option>transparent background</option>
@@ -84,45 +64,54 @@
       </select>
 
       <label>Sticker Color:</label>
-      <input type="color" value="#008000">
+      <input type="color" id="sticker-color" value="#008000">
 
       <label>Sticker Type</label>
-      <select>
-        <option>green square sticker</option>
+      <select id="sticker-type-select">
+        <option>square sticker</option>
         <option>circle sticker</option>
         <option>oval sticker</option>
       </select>
 
       <label>Custom Sticker Text</label>
-      <input type="text" id="sticker-text" placeholder="Bandar Sabun"/>
+      <input type="text" id="sticker-text" placeholder="e.g. New Arrival!" />
 
       <label>Description of Sticker</label>
-      <textarea placeholder="Describe the sticker design..."></textarea>
-
-      <button id="toggle-character-btn">Add Character</button>
+      <textarea id="sticker-description" placeholder="Describe the sticker design..."></textarea>
     </section>
 
     <!-- Character Section -->
-    <section id="character-section" class="hidden">
+    <section id="character-section">
       <h2>Character</h2>
-      <label>Character Description</label>
-      <select id="character-select">
-        <option>A woman with hijab</option>
-        <option>A man with small moustache</option>
-      </select>
+      <label>Character Description (Suggested: e.g. A woman with hijab)</label>
+      <input type="text" id="character-input" placeholder="e.g. A woman with hijab" />
 
-      <label>Activity</label>
-      <select id="activity-select">
-        <option>holding a mockup</option>
-        <option>next to mockup</option>
-        <option>showcasing product</option>
-      </select>
+      <label>Activity (Suggested: e.g. holding a mockup)</label>
+      <input type="text" id="activity-input" placeholder="e.g. holding a mockup" />
 
-      <button id="toggle-dialogue-btn">Add Dialogue</button>
+      <button id="toggle-dialogue-btn">+ Add Dialogue</button>
 
-      <!-- Dialogues Fields -->
       <div id="dialogue-fields"></div>
-      <button type="button" id="add-dialogue-row">+ Add Dialogue</button>
+    </section>
+
+    <!-- Art Style & Scene -->
+    <section id="narrative-section">
+      <h2>Art Style & Scene</h2>
+      <label>Video Type / Art Style</label>
+      <input type="text" id="art-style" placeholder="e.g. cinematic video" />
+
+      <label>Camera Effects</label>
+      <select id="camera-effect">
+        <option value="">-- Select --</option>
+        <option>close-up of the product</option>
+        <option>wide-angle view</option>
+        <option>dolly zoom</option>
+        <option>slow motion</option>
+        <option>panning shot</option>
+      </select>
+
+      <label>Audio Description</label>
+      <input type="text" id="audio-description" placeholder="e.g. natural voiceover, soft music" />
     </section>
 
     <!-- Generate Prompt Section -->
