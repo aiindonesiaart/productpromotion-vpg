@@ -1,4 +1,5 @@
 let selectedMockupColor = "";
+let selectedStickerColor = "";
 
 // Handle Mockup Color Selection
 document.querySelectorAll('#mockup-colors button').forEach(button => {
@@ -8,14 +9,28 @@ document.querySelectorAll('#mockup-colors button').forEach(button => {
     // Remove active class from all
     document.querySelectorAll('#mockup-colors button').forEach(btn => btn.classList.remove('active'));
 
-    // Add active to selected
     if (selectedMockupColor !== "") {
       button.classList.add('active');
-      document.getElementById('mockup-color-value').value = selectedMockupColor;
       showNotification(`You choose ${selectedMockupColor} for mockup`);
     } else {
-      document.getElementById('mockup-color-value').value = "";
       showNotification("You chose no color for mockup");
+    }
+  });
+});
+
+// Handle Sticker Color Selection
+document.querySelectorAll('#sticker-colors button').forEach(button => {
+  button.addEventListener('click', () => {
+    selectedStickerColor = button.getAttribute('data-color');
+
+    // Remove active class from all
+    document.querySelectorAll('#sticker-colors button').forEach(btn => btn.classList.remove('active'));
+
+    if (selectedStickerColor !== "") {
+      button.classList.add('active');
+      showNotification(`You choose ${selectedStickerColor} for sticker`);
+    } else {
+      showNotification("You chose no color for sticker");
     }
   });
 });
@@ -76,7 +91,10 @@ function generatePrompt() {
   let prompt = "";
 
   // Art Style
-  const artStyle = document.getElementById('art-style').value.trim();
+  const artStyleSelect = document.getElementById('art-style-select').value.trim();
+  const artStyleCustom = document.getElementById('art-style-custom').value.trim();
+  const artStyle = artStyleCustom || artStyleSelect;
+
   if (artStyle) prompt += `${artStyle} of `;
 
   // Base Prompt
@@ -93,12 +111,12 @@ function generatePrompt() {
   prompt += ` ${surface} ${mockupType},`;
 
   // Sticker
-  const stickerColorHex = document.getElementById('sticker-color').value;
-  const stickerColor = rgbToName(stickerColorHex) || "color";
   const stickerType = document.getElementById('sticker-type-select').value;
   const stickerDesc = document.getElementById('sticker-description').value.trim();
 
-  prompt += ` with ${stickerColor} ${stickerType}`;
+  if (selectedStickerColor) prompt += ` with ${selectedStickerColor}`;
+
+  prompt += ` ${stickerType}`;
 
   if (stickerDesc) prompt += ` featuring ${stickerDesc}`;
 
@@ -112,7 +130,8 @@ function generatePrompt() {
 
   // Lighting & Background
   const lighting = document.getElementById('lighting-select').value;
-  const background = document.getElementById('background-select').value;
+  const background = document.getElementById('background-input').value.trim();
+
   prompt += `, ${lighting}, ${background}`;
 
   // Character + Activity
@@ -133,7 +152,9 @@ function generatePrompt() {
   });
 
   // Audio
-  const audio = document.getElementById('audio-description').value.trim();
+  const audioSelect = document.getElementById('audio-select').value.trim();
+  const audioCustom = document.getElementById('audio-custom').value.trim();
+  const audio = audioCustom || audioSelect;
   if (audio) prompt += `, the audio is ${audio}`;
 
   // Camera Effect
@@ -141,19 +162,4 @@ function generatePrompt() {
   if (cameraEffect) prompt += `, the scene ends with ${cameraEffect}`;
 
   return prompt;
-}
-
-// Map Hex to Color Name
-function rgbToName(hex) {
-  const colorMap = {
-    "#0000FF": "blue",
-    "#000000": "black",
-    "#FFFFFF": "white",
-    "#008000": "green",
-    "#FFD700": "golden",
-    "#FFA500": "orange",
-    "#FF0000": "red",
-    "#FFFF00": "yellow"
-  };
-  return colorMap[hex.toUpperCase()] || "color";
 }
