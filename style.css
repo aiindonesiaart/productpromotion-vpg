@@ -20,21 +20,21 @@ body {
 
 .color-palette {
   display: flex;
-  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
 }
 
+.color-palette button,
 .color-palette input[type="color"] {
-  width: 30px;
-  height: 30px;
-  border: none;
   cursor: pointer;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
-.color-palette span {
-  font-size: 12px;
-  margin-top: 5px;
+.color-palette button.active {
+  outline: 2px solid #333;
 }
 
 input[type="text"],
@@ -47,16 +47,21 @@ textarea {
   border-radius: 4px;
 }
 
+#notifications {
+  margin-bottom: 15px;
+  color: green;
+  font-weight: bold;
+}
+
 .dialogue-pair {
   margin-bottom: 15px;
 }
 
-.dialogue-pair input,
-.dialogue-pair textarea {
-  width: 100%;
+.brand-input {
+  margin-bottom: 10px;
 }
 
 #generated-prompt {
-  height: 180px;
+  height: 200px;
   font-family: monospace;
 }
