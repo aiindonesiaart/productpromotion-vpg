@@ -20,6 +20,7 @@ body {
 
 .color-palette {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -27,10 +28,12 @@ body {
 .color-palette button {
   cursor: pointer;
   border: none;
-  padding: 8px 12px;
+  padding: 10px 14px;
   border-radius: 4px;
   font-size: 14px;
   background-color: #eee;
+  min-width: 70px;
+  text-align: center;
 }
 
 .color-palette button.active {
@@ -60,4 +63,10 @@ textarea {
 .dialogue-pair input,
 .dialogue-pair textarea {
   margin-bottom: 10px;
+}
+
+#generated-prompt {
+  height: 200px;
+  width: 100%;
+  font-family: monospace;
 }
