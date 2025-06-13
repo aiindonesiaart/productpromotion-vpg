@@ -42,10 +42,10 @@ document.getElementById('toggle-dialogue-btn').addEventListener('click', () => {
 
   const charInput = document.createElement('input');
   charInput.type = 'text';
-  charInput.placeholder = 'Character Name';
+  charInput.placeholder = 'Character Name e.g.: a woman';
 
   const dialogueTextarea = document.createElement('textarea');
-  dialogueTextarea.placeholder = 'What does the character say?';
+  dialogueTextarea.placeholder = 'What does the character say? e.g.: Produknya Mantap!';
 
   wrapper.appendChild(charInput);
   wrapper.appendChild(dialogueTextarea);
@@ -127,14 +127,18 @@ function generatePrompt() {
     if (stickerDesc) promptParts.push(`featuring ${stickerDesc}`);
   }
 
-  // Sticker Brands
-  const brands = [...document.querySelectorAll('.brand-input')]
-                    .map(i => i.value.trim())
-                    .filter(Boolean)
-                    .join(', ');
+ // Sticker Brands - Wrap each brand in quotes
+const brandInputs = document.querySelectorAll('.brand-input');
+let brandList = [];
 
-  if (brands) promptParts.push(`labelled: "${brands}"`);
+brandInputs.forEach(input => {
+  const value = input.value.trim();
+  if (value) brandList.push(`"${value}"`);
+});
 
+if (brandList.length > 0) {
+  promptParts.push(`labelled: ${brandList.join(' ')}`);
+}
   // Lighting & Background
   const lighting = document.getElementById('lighting-select').value.trim();
   const background = document.getElementById('background-input').value.trim();
